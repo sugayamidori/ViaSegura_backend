@@ -1,6 +1,6 @@
 package com.github.sugayamidori.viaseguraapi.controller;
 
-import com.github.sugayamidori.viaseguraapi.controller.dto.UsuarioDTO;
+import com.github.sugayamidori.viaseguraapi.controller.dto.SalvarUsuarioDTO;
 import com.github.sugayamidori.viaseguraapi.controller.mappers.UsuarioMapper;
 import com.github.sugayamidori.viaseguraapi.model.Usuario;
 import com.github.sugayamidori.viaseguraapi.service.UsuarioService;
@@ -23,7 +23,7 @@ public class UsuarioController implements GenericController {
     private final UsuarioMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Void> salvar(@RequestBody @Valid UsuarioDTO dto) {
+    public ResponseEntity<Void> salvar(@RequestBody @Valid SalvarUsuarioDTO dto) {
         Usuario usuario = mapper.toEntity(dto);
         service.salvar(usuario);
 
