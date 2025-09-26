@@ -23,6 +23,12 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
 
+security:
+  jwt:
+    token:
+      secret-key: ${JWT_SECRET:my-secret-key}
+      expire-length: ${JWT_EXPIRE:3600000}
+
 logging:
   file:
     name: app.log
