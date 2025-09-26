@@ -18,6 +18,9 @@ public class Usuario {
     private UUID id;
 
     @Column
+    private String nome;
+
+    @Column
     private String email;
 
     @Column
