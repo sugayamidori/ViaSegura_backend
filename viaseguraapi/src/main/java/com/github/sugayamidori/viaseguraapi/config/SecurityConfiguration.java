@@ -27,6 +27,7 @@ public class SecurityConfiguration {
             LoginSocialSuccessHandler successHandler,
             JwtCustomAuthenticationFilter jwtCustomAuthenticationFilter) throws Exception {
         return http
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(configurer -> {
                     configurer.loginPage("/login");
