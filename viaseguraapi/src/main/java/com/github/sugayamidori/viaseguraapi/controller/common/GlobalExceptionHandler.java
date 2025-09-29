@@ -8,6 +8,7 @@ import com.github.sugayamidori.viaseguraapi.exceptions.RegistroDuplicadoExceptio
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -57,6 +58,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErroResposta handleAccessDeniedException(AccessDeniedException e) {
         return new ErroResposta(HttpStatus.FORBIDDEN.value(), "Acesso Negado.", List.of());
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErroResposta handleUsernameNotFoundException(UsernameNotFoundException e) {
+        return new ErroResposta(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), List.of());
     }
 
     @ExceptionHandler(RuntimeException.class)
