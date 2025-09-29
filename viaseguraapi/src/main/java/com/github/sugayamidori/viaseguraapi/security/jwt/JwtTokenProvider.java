@@ -26,10 +26,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("security.jwt.token.secret-key")
+    @Value("${security.jwt.token.secret-key}")
     private String secretKey;
 
-    @Value("security.jwt.token.expire-length")
+    @Value("${security.jwt.token.expire-length}")
     private Long validityInMilliseconds;
 
     private final UserDetailsService userDetailsService;
@@ -86,11 +86,10 @@ public class JwtTokenProvider {
 
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if(StringUtils.isAllEmpty(bearerToken) && bearerToken.startsWith("Bearer ")) {
+        if(StringUtils.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring("Bearer ".length());
-        } else {
-            throw new InvalidJwtAuthenticationException("Invalid JWT Token");
         }
+        return null;
     }
 
     public boolean validateToken(String token) {
