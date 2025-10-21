@@ -41,7 +41,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/auth/refresh/**").permitAll();
                     authorize.requestMatchers("/swagger-ui/**").permitAll();
                     authorize.requestMatchers("/v3/api-docs/**").permitAll();
-                    authorize.requestMatchers(HttpMethod.POST, "/usuarios/**").permitAll();
+                    authorize.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
 
                     authorize.anyRequest().authenticated();
                 })
