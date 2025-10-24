@@ -1,0 +1,204 @@
+{
+	"info": {
+		"_postman_id": "a2c063a3-4fb2-491b-bb89-04a51e79c94b",
+		"name": "ViaSegura - API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34675566",
+		"_collection_link": "https://acervo-5053.postman.co/workspace/ViaSegura~28227a87-5933-4a3b-a1b1-1ec12e0eb881/collection/34675566-a2c063a3-4fb2-491b-bb89-04a51e79c94b?action=share&source=collection_link&creator=34675566"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Salvar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@gmail.com\",\r\n    \"nome\": \"user\",\r\n    \"senha\": \"user123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/usuarios",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code >= 200 && pm.response.code <= 299) {\r",
+									"    try{\r",
+									"        var jsonData = pm.response.json();\r",
+									"        pm.environment.set('accessToken', jsonData.accessToken);\r",
+									"        pm.environment.set('refreshToken', jsonData.refreshToken);\r",
+									"        pm.environment.set('username', jsonData.username);\r",
+									"    } catch (error) {\r",
+									"        console.error(\"Error parsing the JSON response!\")\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin@gmail.com\",\r\n    \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if(pm.response.code >= 200 && pm.response.code <= 299) {\r",
+									"    try{\r",
+									"        var jsonData = pm.response.json();\r",
+									"        pm.environment.set('accessToken', jsonData.accessToken);\r",
+									"        pm.environment.set('refreshToken', jsonData.refreshToken);\r",
+									"        pm.environment.set('username', jsonData.username);\r",
+									"    } catch (error) {\r",
+									"        console.error(\"Error parsing the JSON response!\")\r",
+									"    }\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{refreshToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin@gmail.com\",\r\n    \"password\": \"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/refresh/{{username}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"refresh",
+								"{{username}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "Salvar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clientId\": \"meu-cliente\",\r\n    \"clientSecret\": \"client-secret\",\r\n    \"redirectURI\": \"{{baseURL}}/authorized\",\r\n    \"scope\": \"OPERADOR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/clients",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
