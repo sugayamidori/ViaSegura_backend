@@ -41,7 +41,12 @@ logging:
       springframework:
         web: debug
         security: trace
-
+spring-doc:
+  path-to-match:
+    - /auth/**
+    - /usuarios/**
+  swagger-ui:
+    user-root-path: true
 # production
 ---
 spring:

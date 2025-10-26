@@ -1,10 +1,12 @@
 package com.github.sugayamidori.viaseguraapi.controller;
 
+import com.github.sugayamidori.viaseguraapi.controller.docs.UsuarioControllerDocs;
 import com.github.sugayamidori.viaseguraapi.controller.dto.SalvarUsuarioDTO;
 import com.github.sugayamidori.viaseguraapi.controller.dto.UsuarioDTO;
 import com.github.sugayamidori.viaseguraapi.controller.mappers.UsuarioMapper;
 import com.github.sugayamidori.viaseguraapi.model.Usuario;
 import com.github.sugayamidori.viaseguraapi.service.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,14 @@ import java.net.URI;
 @RestController
 @RequestMapping("usuarios")
 @RequiredArgsConstructor
-public class UsuarioController implements GenericController {
+@Tag(name = "Users", description = "Endpoints for managing users")
+public class UsuarioController implements GenericController, UsuarioControllerDocs {
 
     private final UsuarioService service;
     private final UsuarioMapper mapper;
 
     @PostMapping
+    @Override
     public ResponseEntity<Void> salvar(@RequestBody @Valid SalvarUsuarioDTO dto) {
         Usuario usuario = mapper.toEntity(dto);
         service.salvar(usuario);
@@ -34,6 +38,7 @@ public class UsuarioController implements GenericController {
 
     @PostMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
+    @Override
     public ResponseEntity<Void> salvar(@RequestBody @Valid UsuarioDTO dto) {
         Usuario usuario = mapper.toEntity(dto);
         service.salvarByAdmin(usuario);
@@ -44,16 +49,18 @@ public class UsuarioController implements GenericController {
     }
 
     @GetMapping("/me")
+    @Override
     public ResponseEntity<UsuarioDTO> obterDetalhes(Authentication authentication) {
         Usuario user = (Usuario) authentication.getPrincipal();
         return service.obterPorId(user.getId())
                 .map(usuario -> {
                     UsuarioDTO dto = mapper.toDTO(usuario);
                     return ResponseEntity.ok(dto);
-                }).orElseGet( () -> ResponseEntity.notFound().build());
+                }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/me")
+    @Override
     public ResponseEntity<Object> atualizar(@RequestBody SalvarUsuarioDTO dto,
                                             Authentication authentication) {
         Usuario user = (Usuario) authentication.getPrincipal();
@@ -68,6 +75,7 @@ public class UsuarioController implements GenericController {
     }
 
     @DeleteMapping("/me")
+    @Override
     public ResponseEntity<Object> deletar(Authentication authentication) {
         Usuario user = (Usuario) authentication.getPrincipal();
         return service.obterPorId(user.getId())
