@@ -30,7 +30,7 @@ public class PredictionService {
 
         Specification<Prediction> specs = (root, query, cb) -> cb.conjunction();
 
-        if(!h3Cell.isBlank()) {
+        if(h3Cell != null && !h3Cell.isBlank()) {
             specs = specs.and(h3CellEquals(h3Cell));
         }
 
