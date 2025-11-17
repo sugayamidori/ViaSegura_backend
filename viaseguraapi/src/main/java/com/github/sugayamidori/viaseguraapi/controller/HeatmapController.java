@@ -1,9 +1,7 @@
 package com.github.sugayamidori.viaseguraapi.controller;
 
 import com.github.sugayamidori.viaseguraapi.controller.docs.HeatmapControllerDocs;
-import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapDTO;
-import com.github.sugayamidori.viaseguraapi.controller.mappers.HeatmapMapper;
-import com.github.sugayamidori.viaseguraapi.model.Heatmap;
+import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapWithCoordinatesDTO;
 import com.github.sugayamidori.viaseguraapi.service.HeatmapService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,28 +21,20 @@ import java.math.BigDecimal;
 public class HeatmapController implements HeatmapControllerDocs {
 
     private final HeatmapService service;
-    private final HeatmapMapper mapper;
 
     @GetMapping
     @Override
-    public ResponseEntity<Page<HeatmapDTO>> search(
-            @RequestParam(value = "h3Cell", required = false)
-            String h3Cell,
-            @RequestParam(value = "year", required = false)
-            Integer year,
-            @RequestParam(value = "month", required = false)
-            Integer month,
-            @RequestParam(value = "numCasualties", required = false)
-            BigDecimal numCasualties,
-            @RequestParam(value = "page", defaultValue = "0")
-            Integer page,
-            @RequestParam(value = "pageSize", defaultValue = "20")
-            Integer pageSize
-
+    public ResponseEntity<Page<HeatmapWithCoordinatesDTO>> search(
+            @RequestParam(value = "h3Cell", required = false) String h3Cell,
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "month", required = false) Integer month,
+            @RequestParam(value = "numCasualties", required = false) BigDecimal numCasualties,
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize
     ) {
-        Page<Heatmap> resultPage = service.search(h3Cell, year, month, numCasualties, page, pageSize);
-
-        Page<HeatmapDTO> result = resultPage.map(mapper::toDTO);
+        Page<HeatmapWithCoordinatesDTO> result = service.searchWithCoordinates(
+                h3Cell, year, month, numCasualties, page, pageSize
+        );
 
         return ResponseEntity.ok(result);
     }

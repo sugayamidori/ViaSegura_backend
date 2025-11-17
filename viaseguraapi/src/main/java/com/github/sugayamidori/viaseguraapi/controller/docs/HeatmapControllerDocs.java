@@ -1,6 +1,7 @@
 package com.github.sugayamidori.viaseguraapi.controller.docs;
 
 import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapDTO;
+import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapWithCoordinatesDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,8 +16,8 @@ import java.math.BigDecimal;
 
 public interface HeatmapControllerDocs {
 
-    @Operation(summary = "Search for the Heatmap",
-            description = "Search for the Heatmap",
+    @Operation(summary = "Search for the Heatmaps",
+            description = "Search for the Heatmaps",
             tags = "Heatmap",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Success",
@@ -27,10 +28,9 @@ public interface HeatmapControllerDocs {
                     @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
                     @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
                     @ApiResponse(responseCode = "403", description = "Forbidden", content = @Content),
-                    @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
                     @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
             })
-    ResponseEntity<Page<HeatmapDTO>> search(
+    ResponseEntity<Page<HeatmapWithCoordinatesDTO>> search(
             @RequestParam(value = "h3Cell", required = false)
             String h3Cell,
             @RequestParam(value = "year", required = false)

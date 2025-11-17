@@ -39,7 +39,7 @@ public class PredictionService {
         }
 
         if(predictedAccidents != null) {
-            specs.and(predictedAccidentsEquals(predictedAccidents));
+            specs = specs.and(predictedAccidentsEquals(predictedAccidents));
         }
 
         Pageable pageRequest = PageRequest.of(page, pageSize);

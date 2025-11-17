@@ -1,15 +1,23 @@
 package com.github.sugayamidori.viaseguraapi.service;
 
+import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapWithCoordinatesDTO;
+import com.github.sugayamidori.viaseguraapi.controller.mappers.H3CoordinatesMapper;
+import com.github.sugayamidori.viaseguraapi.controller.mappers.HeatmapMapper;
+import com.github.sugayamidori.viaseguraapi.model.H3Coordinates;
 import com.github.sugayamidori.viaseguraapi.model.Heatmap;
 import com.github.sugayamidori.viaseguraapi.repository.HeatmapRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static com.github.sugayamidori.viaseguraapi.repository.specs.HeatmapSpecs.*;
 
@@ -18,8 +26,47 @@ import static com.github.sugayamidori.viaseguraapi.repository.specs.HeatmapSpecs
 public class HeatmapService {
 
     private final HeatmapRepository repository;
+    private final H3CoordinatesService h3CoordinatesService;
+    private final HeatmapMapper mapper;
+    private final H3CoordinatesMapper h3CoordinatesMapper;
 
-    public Page<Heatmap> search(
+    public Page<HeatmapWithCoordinatesDTO> searchWithCoordinates(
+            String h3Cell,
+            Integer year,
+            Integer month,
+            BigDecimal numCasualties,
+            Integer page,
+            Integer pageSize
+    ) {
+        Page<Heatmap> heatmaps = search(h3Cell, year, month, numCasualties, page, pageSize);
+
+        if (heatmaps.isEmpty()) {
+            return Page.empty(heatmaps.getPageable());
+        }
+
+        List<String> h3Cells = heatmaps.getContent()
+                .stream()
+                .map(Heatmap::getH3Cell)
+                .distinct()
+                .toList();
+
+        Map<String, List<H3Coordinates>> coordinatesByCell =
+                h3CoordinatesService.findByH3CellsToHeatmap(h3Cells);
+
+        List<HeatmapWithCoordinatesDTO> content = heatmaps.getContent()
+                .stream()
+                .map(heatmap -> new HeatmapWithCoordinatesDTO(
+                        mapper.toDTO(heatmap),
+                        h3CoordinatesMapper.toDTO(
+                                coordinatesByCell.getOrDefault(heatmap.getH3Cell(), Collections.emptyList())
+                        )
+                ))
+                .toList();
+
+        return new PageImpl<>(content, heatmaps.getPageable(), heatmaps.getTotalElements());
+    }
+
+    private Page<Heatmap> search(
             String h3Cell,
             Integer year,
             Integer month,
@@ -30,7 +77,7 @@ public class HeatmapService {
 
         Specification<Heatmap> specs = (root, query, cb) -> cb.conjunction();
 
-        if(!h3Cell.isBlank()) {
+        if(h3Cell != null && !h3Cell.isBlank()) {
             specs = specs.and(h3CellEquals(h3Cell));
         }
 
@@ -39,7 +86,7 @@ public class HeatmapService {
         }
 
         if(month != null) {
-            specs.and(monthEquals(month));
+            specs = specs.and(monthEquals(month));
         }
 
         if(numCasualties != null) {

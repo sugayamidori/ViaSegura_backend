@@ -10,6 +10,9 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.github.sugayamidori.viaseguraapi.repository.specs.H3CoordinatesSpecs.*;
 
@@ -35,7 +38,7 @@ public class H3CoordinatesService {
         }
 
         if(latitude != null) {
-            specs.and(latitudeEquals(latitude));
+            specs = specs.and(latitudeEquals(latitude));
         }
 
         if(longitude != null) {
@@ -49,5 +52,12 @@ public class H3CoordinatesService {
         Pageable pageRequest = PageRequest.of(page, pageSize);
 
         return repository.findAll(specs, pageRequest);
+    }
+
+    public Map<String, List<H3Coordinates>> findByH3CellsToHeatmap(List<String> h3Cells) {
+        List<H3Coordinates> allCoordinates = repository.findByH3CellIn(h3Cells);
+
+        return allCoordinates.stream()
+                .collect(Collectors.groupingBy(H3Coordinates::getH3Cell));
     }
 }
