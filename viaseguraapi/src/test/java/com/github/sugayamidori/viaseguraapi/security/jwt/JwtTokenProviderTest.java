@@ -43,7 +43,7 @@ class JwtTokenProviderTest {
         provider.init();
 
         username = "usuario@exemplo.com";
-        roles = List.of("OPERADOR");
+        roles = List.of("USER");
 
         MockHttpServletRequest mockRequest = new MockHttpServletRequest();
         mockRequest.setServerName("localhost");
@@ -117,7 +117,7 @@ class JwtTokenProviderTest {
         String accessToken = dto.accessToken();
 
         when(userDetailsService.loadUserByUsername(username))
-                .thenReturn(new User(username, "pwd", List.of(new SimpleGrantedAuthority("OPERADOR"))));
+                .thenReturn(new User(username, "pwd", List.of(new SimpleGrantedAuthority("USER"))));
 
         Authentication auth = provider.getAuthentication(accessToken);
 

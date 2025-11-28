@@ -1,8 +1,8 @@
 package com.github.sugayamidori.viaseguraapi.security.jwt;
 
-import com.github.sugayamidori.viaseguraapi.model.Usuario;
+import com.github.sugayamidori.viaseguraapi.model.User;
 import com.github.sugayamidori.viaseguraapi.security.CustomAuthentication;
-import com.github.sugayamidori.viaseguraapi.service.UsuarioService;
+import com.github.sugayamidori.viaseguraapi.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends GenericFilterBean {
 
     private final JwtTokenProvider tokenProvider;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filter) throws IOException, ServletException {
@@ -31,9 +31,9 @@ public class JwtTokenFilter extends GenericFilterBean {
             Authentication authentication = tokenProvider.getAuthentication(token);
             if (authentication != null) {
                 String login = authentication.getName();
-                Usuario usuario = usuarioService.obterPorEmail(login);
-                if (usuario != null) {
-                    authentication = new CustomAuthentication(usuario);
+                User user = userService.findByEmail(login);
+                if (user != null) {
+                    authentication = new CustomAuthentication(user);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

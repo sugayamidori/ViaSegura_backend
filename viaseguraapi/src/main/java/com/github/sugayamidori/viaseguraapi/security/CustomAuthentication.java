@@ -1,6 +1,6 @@
 package com.github.sugayamidori.viaseguraapi.security;
 
-import com.github.sugayamidori.viaseguraapi.model.Usuario;
+import com.github.sugayamidori.viaseguraapi.model.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -13,11 +13,11 @@ import java.util.Collection;
 @Getter
 public class CustomAuthentication implements Authentication {
 
-    private final Usuario usuario;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.usuario.getRoles()
+        return this.user.getRoles()
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .toList();
@@ -30,12 +30,12 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public Object getDetails() {
-        return this.usuario;
+        return this.user;
     }
 
     @Override
     public Object getPrincipal() {
-        return this.usuario;
+        return this.user;
     }
 
     @Override
@@ -50,6 +50,6 @@ public class CustomAuthentication implements Authentication {
 
     @Override
     public String getName() {
-        return this.usuario.getEmail();
+        return this.user.getEmail();
     }
 }

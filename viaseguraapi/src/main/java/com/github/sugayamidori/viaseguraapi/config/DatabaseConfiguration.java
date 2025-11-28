@@ -25,7 +25,7 @@ public class DatabaseConfiguration {
     @Bean
     public DataSource hikariDataSource() {
 
-        log.info("Iniciando conexão com o banco na URL: {}", url);
+        log.info("Initializing database connection: {}", url);
 
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);

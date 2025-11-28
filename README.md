@@ -58,7 +58,7 @@ Configure apenas como preferir as seguintes envs:
 
 ### viaseguraapi
 ```env
-DATASOURCE_URL=jdbc:postgresql://localhost:5432/acervo
+DATASOURCE_URL=jdbc:postgresql://localhost:5432/viasegura
 DATASOURCE_USERNAME=postgres
 DATASOURCE_PASSWORD=postgres
 SPRING_PROFILES_ACTIVE=default

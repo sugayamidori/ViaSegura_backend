@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,12 +37,15 @@ public class SecurityConfiguration {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers("/login/**").permitAll();
                     authorize.requestMatchers("/auth/login").permitAll();
                     authorize.requestMatchers("/auth/refresh/**").permitAll();
-                    authorize.requestMatchers("/swagger-ui/**").permitAll();
-                    authorize.requestMatchers("/v3/api-docs/**").permitAll();
-                    authorize.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
+                    authorize.requestMatchers(HttpMethod.POST, "/users").permitAll();
+
+                    authorize.requestMatchers("/health").permitAll();
+                    authorize.requestMatchers("/actuator/health/**").permitAll();
+                    authorize.requestMatchers("/actuator/metrics/**").permitAll();
+                    authorize.requestMatchers("/actuator/info").permitAll();
+                    authorize.requestMatchers("/actuator/prometheus").permitAll();
 
                     authorize.anyRequest().authenticated();
                 })
@@ -49,6 +53,18 @@ public class SecurityConfiguration {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(
+                "/v2/api-docs/**",
+                "/v3/api-docs/**",
+                "/swagger-resources/**",
+                "/swagger-ui.html",
+                "/swagger-ui/**",
+                "/webjars/**"
+        );
     }
 
     @Bean

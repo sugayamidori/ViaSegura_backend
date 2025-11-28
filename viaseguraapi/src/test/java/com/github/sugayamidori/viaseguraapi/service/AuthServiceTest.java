@@ -2,7 +2,7 @@ package com.github.sugayamidori.viaseguraapi.service;
 
 import com.github.sugayamidori.viaseguraapi.controller.dto.LoginRequest;
 import com.github.sugayamidori.viaseguraapi.controller.dto.TokenDTO;
-import com.github.sugayamidori.viaseguraapi.model.Usuario;
+import com.github.sugayamidori.viaseguraapi.model.User;
 import com.github.sugayamidori.viaseguraapi.security.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +34,7 @@ class AuthServiceTest {
     private JwtTokenProvider tokenProvider;
 
     @Mock
-    private UsuarioService usuarioService;
+    private UserService userService;
 
     @InjectMocks
     private AuthService authService;
@@ -50,34 +50,34 @@ class AuthServiceTest {
     }
 
     @Test
-    void deveAutenticarUsuarioERetornarTokenAoFazerLogin() {
-        String email = "usuario@exemplo.com";
-        String senha = "senha";
-        LoginRequest request = new LoginRequest(email, senha);
-        Usuario usuario = criarUsuario(email, "OPERADOR");
+    void mustAuthenticateUserANDReturnTokenWhenLogin() {
+        String email = "user@exemplo.com";
+        String password = "password";
+        LoginRequest request = new LoginRequest(email, password);
+        User user = createUser(email, "USER");
         Authentication authentication = mock(Authentication.class);
-        TokenDTO tokenEsperado = new TokenDTO(email, true, new Date(), null, "access-token", "refresh");
+        TokenDTO expectedToken = new TokenDTO(email, true, new Date(), null, "access-token", "refresh");
 
         when(authenticationManager.authenticate(any(Authentication.class))).thenReturn(authentication);
-        when(authentication.getPrincipal()).thenReturn(usuario);
-        when(tokenProvider.createAccessToken(usuario.getEmail(), usuario.getRoles())).thenReturn(tokenEsperado);
+        when(authentication.getPrincipal()).thenReturn(user);
+        when(tokenProvider.createAccessToken(user.getEmail(), user.getRoles())).thenReturn(expectedToken);
 
-        TokenDTO tokenGerado = authService.signIn(request);
+        TokenDTO generatedToken = authService.signIn(request);
 
-        assertSame(tokenEsperado, tokenGerado);
+        assertSame(expectedToken, generatedToken);
         assertSame(authentication, SecurityContextHolder.getContext().getAuthentication());
         verify(authenticationManager).authenticate(any(Authentication.class));
-        verify(tokenProvider).createAccessToken(usuario.getEmail(), usuario.getRoles());
+        verify(tokenProvider).createAccessToken(user.getEmail(), user.getRoles());
     }
 
     @Test
-    void naoDeveAutenticarUsuarioERetornarException() {
-        String email = "usuario@exemplo.com";
-        String senha = "senha";
-        LoginRequest request = new LoginRequest(email, senha);
+    void doNotAuthenticateUserThenReturnException() {
+        String email = "user@exemplo.com";
+        String password = "password";
+        LoginRequest request = new LoginRequest(email, password);
 
         when(authenticationManager.authenticate(any(Authentication.class)))
-                .thenThrow(new UsernameNotFoundException("Usuário e/ou senha incorretos"));
+                .thenThrow(new UsernameNotFoundException("Invalid credentials"));
 
         assertThrows(UsernameNotFoundException.class, () -> authService.signIn(request));
         verify(authenticationManager, only()).authenticate(any(Authentication.class));
@@ -85,36 +85,36 @@ class AuthServiceTest {
     }
 
     @Test
-    void deveRetornarNovoTokenQuandoUsuarioExisteAoAtualizarComRefreshToken() {
-        String email = "teste@exemplo.com";
+    void shouldReturnNewTokenWhenUserExistsWhenUpdatingWithRefreshToken() {
+        String email = "user@exemplo.com";
         String refreshToken = "refresh-token";
-        Usuario usuario = criarUsuario(email, "OPERADOR");
-        TokenDTO tokenEsperado = new TokenDTO(email, true, new Date(), null, "access-token", "refresh");
+        User user = createUser(email, "USER");
+        TokenDTO expectedToken = new TokenDTO(email, true, new Date(), null, "access-token", "refresh");
 
-        when(usuarioService.obterPorEmail(email)).thenReturn(usuario);
-        when(tokenProvider.refreshToken(refreshToken)).thenReturn(tokenEsperado);
+        when(userService.findByEmail(email)).thenReturn(user);
+        when(tokenProvider.refreshToken(refreshToken)).thenReturn(expectedToken);
 
-        TokenDTO tokenGerado = authService.signIn(email, refreshToken);
+        TokenDTO generatedToken = authService.signIn(email, refreshToken);
 
-        assertSame(tokenEsperado, tokenGerado);
-        verify(usuarioService).obterPorEmail(email);
+        assertSame(expectedToken, generatedToken);
+        verify(userService).findByEmail(email);
         verify(tokenProvider).refreshToken(refreshToken);
     }
 
     @Test
-    void deveLancarExcecaoQuandoUsuarioNaoExisteAoAtualizarComRefreshToken() {
-        String email = "naoexiste@ex.com";
+    void mustThrowExceptionWhenUserDoesNotExistWhenUpdatingWithRefreshToken() {
+        String email = "user@ex.com";
         String refreshToken = "rt";
-        when(usuarioService.obterPorEmail(email)).thenReturn(null);
+        when(userService.findByEmail(email)).thenReturn(null);
 
         assertThrows(UsernameNotFoundException.class, () -> authService.signIn(email, refreshToken));
         verify(tokenProvider, never()).refreshToken(anyString());
     }
 
-    private Usuario criarUsuario(String email, String... roles) {
-        Usuario usuario = new Usuario();
-        usuario.setEmail(email);
-        usuario.setRoles(java.util.List.of(roles));
-        return usuario;
+    private User createUser(String email, String... roles) {
+        User user = new User();
+        user.setEmail(email);
+        user.setRoles(java.util.List.of(roles));
+        return user;
     }
 }

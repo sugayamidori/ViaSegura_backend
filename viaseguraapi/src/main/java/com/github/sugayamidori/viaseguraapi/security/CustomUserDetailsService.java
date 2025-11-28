@@ -1,9 +1,8 @@
 package com.github.sugayamidori.viaseguraapi.security;
 
-import com.github.sugayamidori.viaseguraapi.model.Usuario;
-import com.github.sugayamidori.viaseguraapi.service.UsuarioService;
+import com.github.sugayamidori.viaseguraapi.model.User;
+import com.github.sugayamidori.viaseguraapi.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,20 +12,20 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UsuarioService service;
+    private final UserService service;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Usuario usuario = service.obterPorEmail(login);
+        User user = service.findByEmail(login);
 
-        if(usuario == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado!");
+        if(user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + login);
         }
 
-        return User.builder()
-                .username(usuario.getEmail())
-                .password(usuario.getSenha())
-                .roles(usuario.getRoles().toArray(new String[usuario.getRoles().size()]))
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRoles().toArray(new String[user.getRoles().size()]))
                 .build();
     }
 }

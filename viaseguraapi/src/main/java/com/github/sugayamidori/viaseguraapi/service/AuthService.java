@@ -2,7 +2,7 @@ package com.github.sugayamidori.viaseguraapi.service;
 
 import com.github.sugayamidori.viaseguraapi.controller.dto.LoginRequest;
 import com.github.sugayamidori.viaseguraapi.controller.dto.TokenDTO;
-import com.github.sugayamidori.viaseguraapi.model.Usuario;
+import com.github.sugayamidori.viaseguraapi.model.User;
 import com.github.sugayamidori.viaseguraapi.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +18,7 @@ public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
-    private final UsuarioService usuarioService;
+    private final UserService userService;
 
     public TokenDTO signIn(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -30,16 +30,16 @@ public class AuthService {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        Usuario user = (Usuario) authentication.getPrincipal();
+        User user = (User) authentication.getPrincipal();
 
         return tokenProvider.createAccessToken(user.getEmail(), user.getRoles());
     }
 
     public TokenDTO signIn(String username, String refreshToken) {
-        var user = usuarioService.obterPorEmail(username);
+        var user = userService.findByEmail(username);
 
         if(user == null) {
-            throw new UsernameNotFoundException("Usuário " + username + " não encontrado");
+            throw new UsernameNotFoundException("User " + username + " not found");
         }
 
         return tokenProvider.refreshToken(refreshToken);
