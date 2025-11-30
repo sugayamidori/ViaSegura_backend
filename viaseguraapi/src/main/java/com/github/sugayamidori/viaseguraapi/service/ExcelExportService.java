@@ -59,9 +59,6 @@ public class ExcelExportService {
 
             byte[] excelBytes = outputStream.toByteArray();
 
-            Files.write(Paths.get("teste_export.xlsx"), excelBytes);
-            System.out.println("✅ Arquivo salvo em: teste_export.xlsx");
-
             return Base64.getEncoder().encodeToString(excelBytes);
         }
     }
