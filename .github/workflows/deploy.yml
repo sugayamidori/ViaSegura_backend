@@ -1,0 +1,123 @@
+name: Deploy Backend API
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+  pull_request:
+    branches:
+      - main
+
+env:
+  JAVA_VERSION: '21'
+  MAVEN_OPTS: '-Xmx3072m'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build com Maven
+        run: mvn clean install -DskipTests
+
+      - name: Executar testes
+        run: mvn test
+
+      - name: Upload do artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: viaseguraapi-jar
+          path: target/*.jar
+          retention-days: 5
+
+  deploy-stage:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/stage'
+    environment: staging
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+      - name: Build com perfil stage
+        run: mvn clean package -DskipTests
+        env:
+          DATASOURCE_URL: ${{ secrets.STAGE_DATASOURCE_URL }}
+          DATASOURCE_USERNAME: ${{ secrets.STAGE_DATASOURCE_USERNAME }}
+          DATASOURCE_PASSWORD: ${{ secrets.STAGE_DATASOURCE_PASSWORD }}
+          JWT_SECRET: ${{ secrets.STAGE_JWT_SECRET }}
+          JWT_EXPIRE: ${{ secrets.STAGE_JWT_EXPIRE }}
+          ORIGIN_PATTERNS: ${{ secrets.STAGE_ORIGIN_PATTERNS }}
+          SPRING_PROFILES_ACTIVE: staging
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGE }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGE }}
+          aws-region: us-east-1 # Ajustar para a região bucket
+
+      - name: Deploy para S3 (Stage)
+        run: |
+          aws s3 cp target/viaseguraapi-1.0.jar s3://viasegura-stage-artifacts/
+
+  deploy-prod:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build com perfil prod
+        run: mvn clean package -DskipTests
+        env:
+          DATASOURCE_URL: ${{ secrets.PROD_DATASOURCE_URL }}
+          DATASOURCE_USERNAME: ${{ secrets.PROD_DATASOURCE_USERNAME }}
+          DATASOURCE_PASSWORD: ${{ secrets.PROD_DATASOURCE_PASSWORD }}
+          JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
+          JWT_EXPIRE: ${{ secrets.PROD_JWT_EXPIRE }}
+          ORIGIN_PATTERNS: ${{ secrets.PROD_ORIGIN_PATTERNS }}
+          SPRING_PROFILES_ACTIVE: prod
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Deploy para S3 (Prod)
+        run: |
+          aws s3 cp target/viaseguraapi-1.0.jar s3://viasegura-prod-artifacts/
+
+      - name: Notificar deploy
+        run: |
+          echo "Deploy realizado com sucesso para produção!"
