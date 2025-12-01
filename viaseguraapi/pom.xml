@@ -10,22 +10,42 @@
 	</parent>
 	<groupId>com.github.sugayamidori</groupId>
 	<artifactId>viaseguraapi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>viaseguraapi</name>
 	<description>API for ViaSegura</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
+
 	<developers>
-		<developer/>
+        <developer>
+            <id>midoriS</id>
+            <name>Midori Sugaya</name>
+            <url>https://github.com/sugayamidori</url>
+        </developer>
+
+        <developer>
+            <id>pedroR</id>
+            <name>Pedro Rodrigues</name>
+            <url>https://github.com/eupedrorodrigues</url>
+        </developer>
+
+        <developer>
+            <id>pedroV</id>
+            <name>Pedro Vinícius</name>
+            <url>https://github.com/Petervl80</url>
+        </developer>
+
+        <developer>
+            <id>raquelF</id>
+            <name>Raquel Freitas</name>
+            <url>https://github.com/raquel-freitas</url>
+        </developer>
+
+        <developer>
+            <id>sayonaraF</id>
+            <name>Sayonara França</name>
+            <url>https://github.com/Sayonarakeroll</url>
+        </developer>
 	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+
 	<properties>
 		<java.version>21</java.version>
 		<mapstruct.version>1.6.0</mapstruct.version>
@@ -34,6 +54,7 @@
         <springdoc.version>2.7.0</springdoc.version>
         <hypersistence.version>3.8.3</hypersistence.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
