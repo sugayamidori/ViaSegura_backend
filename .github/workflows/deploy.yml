@@ -25,7 +25,7 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Necessário para git describe
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -34,13 +34,6 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
       - name: Generate version
         id: version
         run: |
@@ -48,30 +41,10 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
           echo "📦 Version: ${VERSION}"
 
-      - name: Build com Maven
+      - name: Build e testes
         run: |
-          echo "🔨 Building application..."
-          mvn clean install -DskipTests
-
-      - name: Executar testes unitários
-        run: |
-          echo "🧪 Running unit tests..."
-          mvn test
-
-      - name: Executar testes de integração
-        run: |
-          echo "🔗 Running integration tests..."
-          mvn verify -DskipUnitTests
-
-      - name: Gerar relatório de cobertura
-        run: |
-          echo "📊 Generating coverage report..."
-          mvn jacoco:report
-
-      - name: Verificar cobertura mínima
-        run: |
-          echo "✅ Checking minimum coverage..."
-          mvn jacoco:check || echo "⚠️ Coverage below minimum threshold"
+          echo "🔨 Building and testing..."
+          mvn clean verify 
 
       - name: Upload do artefato JAR
         uses: actions/upload-artifact@v4
@@ -82,9 +55,10 @@ jobs:
           if-no-files-found: error
 
       - name: Upload do relatório de cobertura
+        continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report
+          name: coverage-report-${{ steps.version.outputs.version }}
           path: target/site/jacoco/
           retention-days: 7
 
