@@ -1,10 +1,18 @@
 package com.github.sugayamidori.viaseguraapi.controller.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
-public record ErrorResponse(int status, String mensagem, List<FieldError> erros) {
+@Schema(description = "Model to error response")
+public record ErrorResponse(
+        @Schema(description = "HTTP status", example = "500")
+        int status,
+        @Schema(description = "Error message", example = "Unexpected error occurred")
+        String mensagem,
+        @Schema(description = "List of fields with errors", implementation = FieldError.class)
+        List<FieldError> erros) {
 
     public static ErrorResponse respostaPadrao(String mensagem) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), mensagem, List.of());
