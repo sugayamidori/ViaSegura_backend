@@ -26,6 +26,6 @@ ENV JWT_EXPIRE=''
 ENV ORIGIN_PATTERNS=''
 
 ENV SPRING_PROFILES_ACTIVE='prod'
-ENV TZ='America/Sao_Paulo'
+ENV TZ='America/Recife'
 
 ENTRYPOINT exec java -jar viaseguraapi.jar

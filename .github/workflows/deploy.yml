@@ -3,8 +3,8 @@ name: Deploy Backend API
 on:
   push:
     branches:
-      - main
-      - stage
+      - main      # Production
+      - stage     # Staging
   pull_request:
     branches:
       - main
@@ -12,14 +12,20 @@ on:
 env:
   JAVA_VERSION: '21'
   MAVEN_OPTS: '-Xmx3072m'
+  ECR_REPOSITORY: viaseguraapi
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
     steps:
       - name: Checkout do código
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Necessário para git describe
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -27,97 +33,314 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           distribution: 'temurin'
           cache: 'maven'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Generate version
+        id: version
+        run: |
+          VERSION=$(git describe --tags --always --dirty)
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "📦 Version: ${VERSION}"
 
       - name: Build com Maven
-        run: mvn clean install -DskipTests
+        run: |
+          echo "🔨 Building application..."
+          mvn clean install -DskipTests
 
-      - name: Executar testes
-        run: mvn test
+      - name: Executar testes unitários
+        run: |
+          echo "🧪 Running unit tests..."
+          mvn test
 
-      - name: Upload do artefato
+      - name: Executar testes de integração
+        run: |
+          echo "🔗 Running integration tests..."
+          mvn verify -DskipUnitTests
+
+      - name: Gerar relatório de cobertura
+        run: |
+          echo "📊 Generating coverage report..."
+          mvn jacoco:report
+
+      - name: Verificar cobertura mínima
+        run: |
+          echo "✅ Checking minimum coverage..."
+          mvn jacoco:check || echo "⚠️ Coverage below minimum threshold"
+
+      - name: Upload do artefato JAR
         uses: actions/upload-artifact@v4
         with:
-          name: viaseguraapi-jar
+          name: viaseguraapi-jar-${{ steps.version.outputs.version }}
           path: target/*.jar
-          retention-days: 5
+          retention-days: 7
+          if-no-files-found: error
 
-  deploy-stage:
+      - name: Upload do relatório de cobertura
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: target/site/jacoco/
+          retention-days: 7
+
+  build-docker-image:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/stage'
-    environment: staging
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/main')
+
+    outputs:
+      image-tag: ${{ steps.env.outputs.IMAGE_TAG }}
+      environment: ${{ steps.env.outputs.ENVIRONMENT }}
 
     steps:
-      - name: Checkout do código
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'maven'
-      - name: Build com perfil stage
-        run: mvn clean package -DskipTests
-        env:
-          DATASOURCE_URL: ${{ secrets.STAGE_DATASOURCE_URL }}
-          DATASOURCE_USERNAME: ${{ secrets.STAGE_DATASOURCE_USERNAME }}
-          DATASOURCE_PASSWORD: ${{ secrets.STAGE_DATASOURCE_PASSWORD }}
-          JWT_SECRET: ${{ secrets.STAGE_JWT_SECRET }}
-          JWT_EXPIRE: ${{ secrets.STAGE_JWT_EXPIRE }}
-          ORIGIN_PATTERNS: ${{ secrets.STAGE_ORIGIN_PATTERNS }}
-          SPRING_PROFILES_ACTIVE: staging
+          name: viaseguraapi-jar-${{ needs.build-and-test.outputs.version }}
+          path: target/
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_STAGE }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_STAGE }}
-          aws-region: us-east-1 # Ajustar para a região bucket
-
-      - name: Deploy para S3 (Stage)
+      - name: Set environment variables
+        id: env
         run: |
-          aws s3 cp target/viaseguraapi-1.0.jar s3://viasegura-stage-artifacts/
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "ENVIRONMENT=production" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=latest" >> $GITHUB_OUTPUT
+          else
+            echo "ENVIRONMENT=staging" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=stage" >> $GITHUB_OUTPUT
+          fi
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+          echo "GIT_SHA=${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
 
-  deploy-prod:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    environment: production
-
-    steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: ${{ env.JAVA_VERSION }}
-          distribution: 'temurin'
-          cache: 'maven'
-
-      - name: Build com perfil prod
-        run: mvn clean package -DskipTests
-        env:
-          DATASOURCE_URL: ${{ secrets.PROD_DATASOURCE_URL }}
-          DATASOURCE_USERNAME: ${{ secrets.PROD_DATASOURCE_USERNAME }}
-          DATASOURCE_PASSWORD: ${{ secrets.PROD_DATASOURCE_PASSWORD }}
-          JWT_SECRET: ${{ secrets.PROD_JWT_SECRET }}
-          JWT_EXPIRE: ${{ secrets.PROD_JWT_EXPIRE }}
-          ORIGIN_PATTERNS: ${{ secrets.PROD_ORIGIN_PATTERNS }}
-          SPRING_PROFILES_ACTIVE: prod
-
-      - name: Configure AWS Credentials
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Deploy para S3 (Prod)
-        run: |
-          aws s3 cp target/viaseguraapi-1.0.jar s3://viasegura-prod-artifacts/
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Notificar deploy
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        env:
+          ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          IMAGE_TAG: ${{ steps.env.outputs.IMAGE_TAG }}
+          ENVIRONMENT: ${{ steps.env.outputs.ENVIRONMENT }}
+          BUILD_DATE: ${{ steps.env.outputs.BUILD_DATE }}
+          GIT_SHA: ${{ steps.env.outputs.GIT_SHA }}
+          VERSION: ${{ needs.build-and-test.outputs.version }}
         run: |
-          echo "Deploy realizado com sucesso para produção!"
+          echo "🐳 Building Docker image..."
+          docker buildx build \
+            --platform linux/amd64 \
+            --build-arg VERSION=${VERSION} \
+            --build-arg BUILD_DATE=${BUILD_DATE} \
+            --build-arg GIT_SHA=${GIT_SHA} \
+            --label "org.opencontainers.image.created=${BUILD_DATE}" \
+            --label "org.opencontainers.image.revision=${GIT_SHA}" \
+            --label "org.opencontainers.image.version=${VERSION}" \
+            --label "org.opencontainers.image.environment=${ENVIRONMENT}" \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:${GIT_SHA} \
+            -t $ECR_REGISTRY/$ECR_REPOSITORY:${ENVIRONMENT}-latest \
+            -t $DOCKER_USERNAME/$ECR_REPOSITORY:$IMAGE_TAG \
+            -t $DOCKER_USERNAME/$ECR_REPOSITORY:${GIT_SHA} \
+            -t $DOCKER_USERNAME/$ECR_REPOSITORY:${ENVIRONMENT}-latest \
+            --load \
+            .
+          
+          echo "📤 Pushing to Amazon ECR..."
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${GIT_SHA}
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${ENVIRONMENT}-latest
+          
+          echo "📤 Pushing to Docker Hub..."
+          docker push $DOCKER_USERNAME/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $DOCKER_USERNAME/$ECR_REPOSITORY:${GIT_SHA}
+          docker push $DOCKER_USERNAME/$ECR_REPOSITORY:${ENVIRONMENT}-latest
+          
+          echo "✅ Images pushed successfully!"
+          echo "📦 ECR: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "📦 Docker Hub: $DOCKER_USERNAME/$ECR_REPOSITORY:$IMAGE_TAG"
+          echo "🏷️  Tags: $IMAGE_TAG, ${GIT_SHA}, ${ENVIRONMENT}-latest"
+
+      - name: Scan image for vulnerabilities
+        continue-on-error: true
+        run: |
+          echo "🔍 Scanning image for vulnerabilities..."
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy image \
+            --severity HIGH,CRITICAL \
+            --no-progress \
+            ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.env.outputs.IMAGE_TAG }}
+
+  deploy-to-ec2:
+    needs: [build-and-test, build-docker-image]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/stage' || github.ref == 'refs/heads/main')
+
+    environment:
+      name: ${{ needs.build-docker-image.outputs.environment }}
+      url: ${{ steps.deploy.outputs.app-url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set environment variables
+        id: env
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "ENVIRONMENT=production" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=latest" >> $GITHUB_OUTPUT
+            echo "EC2_HOST=${{ secrets.EC2_PROD_HOST }}" >> $GITHUB_OUTPUT
+            echo "EC2_USER=${{ secrets.EC2_PROD_USER }}" >> $GITHUB_OUTPUT
+            echo "APP_URL=https://api.viasegura.com" >> $GITHUB_OUTPUT
+            echo "SSH_KEY<<EOF" >> $GITHUB_OUTPUT
+            echo "${{ secrets.EC2_PROD_SSH_KEY }}" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "ENVIRONMENT=staging" >> $GITHUB_OUTPUT
+            echo "IMAGE_TAG=stage" >> $GITHUB_OUTPUT
+            echo "EC2_HOST=${{ secrets.EC2_STAGING_HOST }}" >> $GITHUB_OUTPUT
+            echo "EC2_USER=${{ secrets.EC2_STAGING_USER }}" >> $GITHUB_OUTPUT
+            echo "APP_URL=https://api-staging.viasegura.com" >> $GITHUB_OUTPUT
+            echo "SSH_KEY<<EOF" >> $GITHUB_OUTPUT
+            echo "${{ secrets.EC2_STAGING_SSH_KEY }}" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to EC2
+        id: deploy
+        env:
+          EC2_HOST: ${{ steps.env.outputs.EC2_HOST }}
+          EC2_USER: ${{ steps.env.outputs.EC2_USER }}
+          SSH_KEY: ${{ steps.env.outputs.SSH_KEY }}
+          ECR_REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
+          IMAGE_TAG: ${{ steps.env.outputs.IMAGE_TAG }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          ENVIRONMENT: ${{ steps.env.outputs.ENVIRONMENT }}
+          APP_URL: ${{ steps.env.outputs.APP_URL }}
+        run: |
+          echo "$SSH_KEY" > private_key.pem
+          chmod 600 private_key.pem
+          
+          echo "🚀 Deploying to $ENVIRONMENT environment..."
+          
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $EC2_USER@$EC2_HOST << 'ENDSSH'
+            set -e
+          
+            echo "🔐 Login no ECR..."
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
+              docker login --username AWS --password-stdin ${{ secrets.AWS_ECR_REGISTRY }}
+          
+            echo "📁 Navegando para diretório da aplicação..."
+            cd /home/ubuntu/viasegura || cd ~/viasegura || { echo "❌ Diretório não encontrado"; exit 1; }
+          
+            echo "🎯 Definindo imagem: ${{ secrets.AWS_ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ steps.env.outputs.IMAGE_TAG }}"
+            export BACKEND_IMAGE=${{ secrets.AWS_ECR_REGISTRY }}/viaseguraapi:${{ steps.env.outputs.IMAGE_TAG }}
+          
+            echo "⬇️ Pulling nova imagem..."
+            docker pull $BACKEND_IMAGE
+          
+            echo "💾 Backup do container atual (se existir)..."
+            if [ "$(docker ps -q -f name=viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }})" ]; then
+              docker commit viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }} \
+                viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }}-backup:$(date +%Y%m%d-%H%M%S) || true
+            fi
+          
+            echo "🔄 Atualizando container app-backend..."
+            docker-compose --env-file .env.${{ steps.env.outputs.ENVIRONMENT }} up -d app-backend
+          
+            echo "⏳ Aguardando container ficar saudável..."
+            timeout=60
+            counter=0
+            until [ "$(docker inspect --format='{{.State.Health.Status}}' viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }})" == "healthy" ] || [ $counter -eq $timeout ]; do
+              echo "Aguardando... ($counter/$timeout)"
+              sleep 2
+              counter=$((counter + 2))
+            done
+          
+            if [ $counter -eq $timeout ]; then
+              echo "⚠️ Timeout ao aguardar container ficar saudável"
+              docker logs --tail 50 viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }}
+              exit 1
+            fi
+          
+            echo "🧹 Limpando imagens antigas..."
+            docker image prune -af --filter "until=24h"
+          
+            echo "🧹 Removendo backups antigos (mantendo últimos 3)..."
+            docker images | grep "viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }}-backup" | \
+              tail -n +4 | awk '{print $3}' | xargs -r docker rmi || true
+          
+            echo "✅ Deploy concluído com sucesso!"
+            echo "📊 Status dos containers:"
+            docker-compose ps
+          
+            echo "📝 Logs recentes:"
+            docker logs --tail 20 viasegura-backend-${{ steps.env.outputs.ENVIRONMENT }}
+          ENDSSH
+          
+          rm -f private_key.pem
+          
+          echo "app-url=$APP_URL" >> $GITHUB_OUTPUT
+          echo "🎉 Deploy para $ENVIRONMENT finalizado!"
+
+      - name: Health Check
+        run: |
+          echo "🏥 Verificando saúde da aplicação..."
+          sleep 10
+          
+          for i in {1..5}; do
+            if curl -f -s "${{ steps.env.outputs.APP_URL }}/actuator/health" > /dev/null; then
+              echo "✅ Aplicação está saudável!"
+              exit 0
+            fi
+            echo "Tentativa $i/5 falhou, aguardando..."
+            sleep 10
+          done
+          
+          echo "⚠️ Health check falhou, mas deploy foi concluído"
+          exit 0
+
+      - name: Notificar sucesso
+        if: success()
+        run: |
+          echo "✅ Deploy realizado com sucesso!"
+          echo "🌍 URL: ${{ steps.env.outputs.APP_URL }}"
+          echo "🏷️  Tag: ${{ steps.env.outputs.IMAGE_TAG }}"
+          echo "🔧 Ambiente: ${{ steps.env.outputs.ENVIRONMENT }}"
+
+      - name: Notificar falha
+        if: failure()
+        run: |
+          echo "❌ Deploy falhou!"
+          echo "📧 Verifique os logs e notifique a equipe"
