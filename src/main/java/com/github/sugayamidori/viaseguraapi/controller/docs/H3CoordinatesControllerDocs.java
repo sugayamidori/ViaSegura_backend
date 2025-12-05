@@ -57,7 +57,7 @@ public interface H3CoordinatesControllerDocs {
                                                   String neighborhood,
                                                   @RequestParam(value = "page", defaultValue = "0")
                                                   Integer page,
-                                                  @RequestParam(value = "pageSize", defaultValue = "150")
+                                                  @RequestParam(value = "pageSize", defaultValue = "300")
                                                   Integer pageSize);
 
     @Operation(summary = "Search for all neighborhoods",

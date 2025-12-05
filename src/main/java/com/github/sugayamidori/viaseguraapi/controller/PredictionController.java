@@ -36,7 +36,7 @@ public class PredictionController implements PredictionControllerDocs {
             BigDecimal predictedAccidents,
             @RequestParam(value = "page", defaultValue = "0")
             Integer page,
-            @RequestParam(value = "pageSize", defaultValue = "150")
+            @RequestParam(value = "pageSize", defaultValue = "300")
             Integer pageSize
 
     ) {

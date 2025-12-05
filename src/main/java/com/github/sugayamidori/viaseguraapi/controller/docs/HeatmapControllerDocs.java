@@ -54,7 +54,7 @@ public interface HeatmapControllerDocs {
             @RequestParam(value = "num_casualties", required = false) BigDecimal numCasualties,
             @RequestParam(value = "neighborhood", required = false) String neighborhood,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "pageSize", defaultValue = "150") Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "300") Integer pageSize
 
     );
 
@@ -84,7 +84,7 @@ public interface HeatmapControllerDocs {
                             schema = @Schema(implementation = ErrorResponse.class)
                     )),
             })
-    public ResponseEntity<FileBase64DTO> exportData(
+    ResponseEntity<FileBase64DTO> exportData(
             @RequestParam(value = "start_year", required = false) Integer startYear,
             @RequestParam(value = "start_month", required = false) Integer startMonth,
             @RequestParam(value = "end_year", required = false) Integer endYear,
