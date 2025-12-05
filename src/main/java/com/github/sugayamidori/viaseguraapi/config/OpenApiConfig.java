@@ -16,7 +16,7 @@ public class OpenApiConfig {
                         .title("Via Segura API")
                         .version("v1")
                         .description("Documentation of Via Segura REST API")
-                        .termsOfService("https://github.com/sugayamidori/ViaSegura")
+                        .termsOfService("https://github.com/sugayamidori/ViaSegura_backend")
                         .license(new License()
                                 .name("Apache License Version 2.0")
                                 .url("https://www.apache.org/licenses/LICENSE-2.0")));
