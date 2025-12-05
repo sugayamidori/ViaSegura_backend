@@ -10,13 +10,14 @@ Bem-vindo ao **ViaSeguraAPI**!
 - [Configuração](#configuração)
 - [Criação das Tabelas](#criação-das-tabelas)
 - [Testando as Rotas](#testando-as-Rotas)
+- [Deployment AWS](#deployment-aws)
 - [Observações Finais](#observações-finais)
 
 ---
 
 ## 🌟 Visão Geral
 
-O ViaSeguraAPI tem como objetivo fornecer uma autenticação segura e o acesso aos dados de sinistro da cidade do Recife.
+O ViaSeguraAPI visa fornecer uma autenticação segura e o acesso aos dados de sinistro da cidade do Recife.
 
 ---
 
@@ -26,7 +27,7 @@ O ViaSeguraAPI tem como objetivo fornecer uma autenticação segura e o acesso a
 - **Maven 3.9.9**
 - **Docker e Docker Compose (opcional)**
 - **PostgreSQL 16.3**
-- **pgAdmin 4 para gerenciamento da base de dados (Opcional)**
+- **pgAdmin 4 para gestão da base de dados (Opcional)**
 
 ---
 
@@ -53,22 +54,19 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
 ### 🔧 Passos com Docker
 
-O projeto como um todo apresenta um **[`docker-compose`](../docker-compose.yml) para rodar os serviços pelo Docker**.
+O projeto apresenta um **[`docker-compose`](docker-compose.yml) para rodar os serviços pelo Docker**.
 Configure apenas como preferir as seguintes envs:
 
 ### viaseguraapi
 ```env
-DATASOURCE_URL=jdbc:postgresql://localhost:5432/viasegura
+DATASOURCE_URL=jdbc:postgresql://viaseguradb:5432/viasegura
 DATASOURCE_USERNAME=postgres
 DATASOURCE_PASSWORD=postgres
-SPRING_PROFILES_ACTIVE=default
-TZ=America/Sao_Paulo
-```
-
-Caso queira integrar com o Google:
-```env
-GOOGLE_CLIENT_ID=client_id
-GOOGLE_CLIENT_SECRET=client_secret
+JWT_SECRET=my-secret
+JWT_EXPIRE=3600000
+ORIGIN_PATTERNS=http://localhost:3000,http://localhost:8080,http://localhost:5173
+SPRING_PROFILES_ACTIVE=dev
+TZ=America/Recife
 ```
 
 ### viaseguradb
@@ -76,7 +74,7 @@ GOOGLE_CLIENT_SECRET=client_secret
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 POSTGRES_DB=viasegura
-TZ=America/Sao_Paulo
+TZ=America/Recife
 ```
 
 ### pgadmin4
@@ -84,6 +82,20 @@ TZ=America/Sao_Paulo
 PGADMIN_DEFAULT_EMAIL=admin@admin.com
 PGADMIN_DEFAULT_PASSWORD=admin
 ```
+
+### data-loader
+Para esse serviço você deve usar os arquivos .csv que estão em *[`data`](scripts/data)* para serem salvos numa
+base de dados. Caso esteja num sistema operacional windows, coloque o separador de linhas como LF para o
+[`entrypoint.sh`](scripts/entrypoint.sh) executar a inserção de dados automaticamente ao subir o container.
+Caso queira executar manualmente, execute esse comando:
+```bash
+# Instala dependências
+docker exec data-loader pip install -r requirements.txt
+
+# Executa carga
+docker exec -it data-loader python load_data.py
+```
+
 
 Após definir as variáveis de ambiente rode o seguinte comando:
 ```bash
@@ -98,14 +110,17 @@ Este projeto utiliza **PostgreSQL**. Recomenda-se utilizar o Docker para subir o
 
 ## 🧾 Criação das Tabelas
 
-As instruções SQL estão no arquivo [`Scripts_SQL`](../Scripts_SQL). Verifique esse arquivo caso queira criar manualmente as tabelas.
+A criação de tabelas é realizada automaticamente após rodar a aplicação utilizando as 
+migrations com flyway em [migration](src/main/resources/db/migration)
 
 
 ---
 
 ## 📬 Testando as Rotas
 
-Importe o arquivo `operacoes_postman.json` no [Postman](https://www.postman.com/) para testar as operações da API.
+Importe o arquivo `operacoes_postman.json` disponível no diretório root deste repositório
+ou acesse a documentação com Swagger acessando `/swagger-ui/index.html` e importe a url `/v3/api-docs`
+no [Postman](https://www.postman.com/) para testar as operações da API.
 
 ---
 
@@ -123,6 +138,12 @@ Importe o arquivo `operacoes_postman.json` no [Postman](https://www.postman.com/
  ├── 📂 validator              # Camada de validação das entidades
   Application                  # Inicializador da API
 ```
+
+---
+
+## 🚀 Deployment AWS
+
+Para realizar o deployment da aplicação com AWS, siga os passos em [AWS_DEPLOYMENT](AWS_DEPLOYMENT.md)
 
 ---
 
