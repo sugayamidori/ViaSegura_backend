@@ -3,7 +3,6 @@ package com.github.sugayamidori.viaseguraapi.controller;
 import com.github.sugayamidori.viaseguraapi.controller.docs.HeatmapControllerDocs;
 import com.github.sugayamidori.viaseguraapi.controller.dto.FileBase64DTO;
 import com.github.sugayamidori.viaseguraapi.controller.dto.HeatmapWithCoordinatesDTO;
-import com.github.sugayamidori.viaseguraapi.service.ExcelExportService;
 import com.github.sugayamidori.viaseguraapi.service.HeatmapService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ import java.time.LocalDateTime;
 public class HeatmapController implements HeatmapControllerDocs {
 
     private final HeatmapService service;
-    private final ExcelExportService excelExportService;
 
     @GetMapping
     @Override
