@@ -1,0 +1,5137 @@
+{
+  "info": {
+    "_postman_id": "3fe065a1-bd93-452b-95bd-ca09e3483343",
+    "name": "Via Segura API",
+    "description": "Documentation of Via Segura REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "me",
+          "item": [
+            {
+              "name": "Get current user details",
+              "id": "004fd49e-35f6-4603-9f24-ff7d94b7293f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                },
+                "description": "Endpoint to retrieve details of the currently authenticated user"
+              },
+              "response": [
+                {
+                  "id": "0773e677-d643-413b-9418-f67fb7e898f3",
+                  "name": "User details retrieved successfully",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}"
+                },
+                {
+                  "id": "b17359ea-93f4-405c-b009-b0693531d649",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "a0559c07-6c84-4560-886e-db508cba2496",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "c13c5820-2022-4ce0-9f36-9fccdc984d90",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "a1bd2885-4db2-4be6-af7a-a586bb468d81",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "7c214c6b-5400-4e8c-975a-b7c471b30be0",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "62ebccb6-ed9f-4038-969d-dadefa5639a9",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "bef07e5c-388b-4499-8f75-599e8d4cf27a",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update current user details",
+              "id": "fe5cc24e-54fe-4da4-af29-377cb80ac482",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                },
+                "description": "Endpoint to update details of the currently authenticated user"
+              },
+              "response": [
+                {
+                  "id": "d1032932-6682-40d1-881f-fc3868efc8df",
+                  "name": "User updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "body": ""
+                },
+                {
+                  "id": "1ca3f08f-5a91-4dc3-a2a8-d0d18cbd5349",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "b7033c3f-bc96-4f12-9499-c3bae029d742",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "1d7a124a-655e-4628-abe0-ca3949d104b2",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "fd0cc8c9-9469-4c01-8c19-9b56c07979dd",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "d1feba35-12c4-4cb6-8d9a-01c21bff0d53",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "cef92c00-3b55-46d7-862c-7ec3f18d1c76",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "2839611f-192e-4328-aed0-8e5f7a0dc8f2",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            },
+            {
+              "name": "Delete current user",
+              "id": "a0cb241d-b0aa-47cd-aa93-490eb9d5880e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "me"
+                  ]
+                },
+                "description": "Endpoint to delete the currently authenticated user"
+              },
+              "response": [
+                {
+                  "id": "2022888a-8692-4dce-913b-271a06716ba6",
+                  "name": "User deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "body": ""
+                },
+                {
+                  "id": "1cf95885-574f-411e-ba3e-ef2c7f356833",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "b2aec6a1-52ea-49fe-86e8-4b8220853c75",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "22dbdc37-5e8b-4ec0-9165-adf6fa0d56f6",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "4801c409-96a3-4599-b4a3-3aba90cdf62f",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "453c3c20-eb9c-4de0-8f7d-b8e05c7b1ba9",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "7de2e57c-0839-4ff2-a228-f722c2d13c97",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "02c2ceb1-f1fe-43dd-b098-f5ff2be885ef",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/users/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "9a7c43b3-a772-4542-86f8-e786cd5a941f"
+        },
+        {
+          "name": "admin",
+          "item": [
+            {
+              "name": "Register a new user by admin",
+              "id": "e8f43910-090c-4760-9bc4-b1448e3b39fd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/admin",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "admin"
+                  ]
+                },
+                "description": "Endpoint for admin to register a new user in the system"
+              },
+              "response": [
+                {
+                  "id": "27da802a-a06f-4986-80f1-a171900d1ca8",
+                  "name": "User created successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "text",
+                  "body": ""
+                },
+                {
+                  "id": "ac767933-38cf-4ae4-82a3-74f119c05084",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "2f04b37b-e39e-4df0-8471-70cefa8e4798",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "f81be033-3c66-408c-a14e-fd09bb86a8ea",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "095eeb31-9b6b-43dd-b11c-e7f67ecf1827",
+                  "name": "User already exists",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "9b44daf7-cf02-498b-9ec2-c72ed06829e0",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "3b94b2e7-315d-48d0-afad-9f713b5472e3",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"roles\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/users/admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "users",
+                        "admin"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "a55f781d-dcd5-46ea-8a41-70b87519b414"
+        },
+        {
+          "name": "Register a new user",
+          "id": "3ce3a75c-b791-4060-829a-f789a4cf6055",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "description": "Endpoint to register a new user in the system"
+          },
+          "response": [
+            {
+              "id": "e6a2972d-e9ca-4731-b44b-ed1529fac8ef",
+              "name": "User created successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "text",
+              "body": ""
+            },
+            {
+              "id": "1ebe517c-a8bc-409a-afd3-6f6bf687d7bb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "0922016d-7589-4b16-8737-28c1b434fa76",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "f32ff39b-c432-47f5-9600-1f75c478300e",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "49b84ca4-472d-4eb4-8969-f62bf445e915",
+              "name": "User already exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "cf815cc1-aad7-4200-affd-d9cb91b12473",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "4c38b924-6fdf-407c-80fc-1e174635a82a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"string\",\n  \"name\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ],
+      "id": "f54fda9d-7318-4534-98f3-bee7051c96b7"
+    },
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "refresh",
+          "item": [
+            {
+              "name": "{username}",
+              "item": [
+                {
+                  "name": "Refresh token",
+                  "id": "7246718f-4b75-4b41-9a57-1cf73cd7b889",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/refresh/:username",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "refresh",
+                        ":username"
+                      ],
+                      "variable": [
+                        {
+                          "key": "username",
+                          "value": "string"
+                        }
+                      ]
+                    },
+                    "description": "Endpoint to refresh authentication tokens"
+                  },
+                  "response": [
+                    {
+                      "id": "025a6a29-bf45-40a9-b73a-8bc9da98b477",
+                      "name": "Token refreshed successfully",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"username\": \"string\",\n  \"authenticated\": true,\n  \"created\": \"1978-11-09T09:04:19.790Z\",\n  \"expiration\": \"1968-08-05T21:00:23.514Z\",\n  \"accessToken\": \"string\",\n  \"refreshToken\": \"string\"\n}"
+                    },
+                    {
+                      "id": "99b0c845-cd68-464b-b5d4-8ec388d29bca",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "110de45b-3fcf-44cc-ae5e-04f810dd0d61",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "0c0b657f-a3b7-4fd0-b994-86cf18ec7bf6",
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "b508c99b-138a-41eb-af07-467d9b4f22b8",
+                      "name": "User not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "1a572ecd-d426-4817-b2b5-23ace7aa68b4",
+                      "name": "Conflict",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Conflict",
+                      "code": 409,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "119ff288-6d4f-4d24-841e-f6aa0b1e8092",
+                      "name": "Unprocessable Entity",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "*/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "*/*"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "id": "e15993fd-a7c0-43ac-b95d-57288f8f97f5",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/auth/refresh/:username",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "auth",
+                            "refresh",
+                            ":username"
+                          ],
+                          "variable": [
+                            {
+                              "key": "username",
+                              "value": "string"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                    }
+                  ]
+                }
+              ],
+              "id": "3ddd6b22-29f8-4b1b-9d25-d6cd3884d0d2"
+            }
+          ],
+          "id": "84d5b3c8-7bc3-420b-bcb9-61d94136bfcf"
+        },
+        {
+          "name": "login",
+          "item": [
+            {
+              "name": "User login",
+              "id": "9be137e6-cde9-4b54-a01d-a1497e10963f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                },
+                "description": "Endpoint for user authentication and token generation"
+              },
+              "response": [
+                {
+                  "id": "ba875d92-5461-4a18-bcf1-b1b0409e96da",
+                  "name": "Login successful",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"username\": \"string\",\n  \"authenticated\": true,\n  \"created\": \"1978-11-09T09:04:19.790Z\",\n  \"expiration\": \"1968-08-05T21:00:23.514Z\",\n  \"accessToken\": \"string\",\n  \"refreshToken\": \"string\"\n}"
+                },
+                {
+                  "id": "3b9f7c7f-f099-4a4e-9878-73f613cc09ff",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "ef299439-0a0d-467b-9c3e-d237b096a220",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "101f0451-96e6-4766-bbeb-7d0218b5b641",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "410c98ee-c1f5-4299-95b7-debbeafd8d85",
+                  "name": "User not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "fb68b704-bfe4-4bea-9746-063b877f2d53",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "29505944-d81f-4e0e-806c-0468dfce5e72",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "79de7de3-b595-47a1-83e8-8f79c595b15a",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"username\": \"string\",\n  \"password\": \"string\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "005d5fcc-5eff-4f81-995a-0493b6d691a4"
+        }
+      ],
+      "id": "6a40e7b1-79c1-4c8d-bad1-d1639f12fa2b"
+    },
+    {
+      "name": "predictions",
+      "item": [
+        {
+          "name": "Search for the Predictions",
+          "id": "231552bf-ec3d-4ce9-bec1-98a2c0215df2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "predictions"
+              ],
+              "query": [
+                {
+                  "key": "h3Cell",
+                  "value": "string"
+                },
+                {
+                  "key": "weekStart",
+                  "value": "string"
+                },
+                {
+                  "key": "predictedAccidents",
+                  "value": "9084.827720823809"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "150"
+                }
+              ]
+            },
+            "description": "Search for the Predictions"
+          },
+          "response": [
+            {
+              "id": "1ef7f3a8-0284-4eab-a86c-c2ee8663ab18",
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"h3Cell\": \"string\",\n    \"weekStart\": \"2005-07-29\",\n    \"predictedAccidents\": 4155.255139025376,\n    \"createdAt\": \"2002-10-17T12:37:31.261Z\"\n  },\n  {\n    \"h3Cell\": \"string\",\n    \"weekStart\": \"1945-12-23\",\n    \"predictedAccidents\": 7725.5306489553295,\n    \"createdAt\": \"2025-04-15T09:23:19.401Z\"\n  }\n]"
+            },
+            {
+              "id": "c8bbb860-4345-4ad0-b7e5-33c5a58bc727",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "15fff568-8486-4de9-8616-ad716116f0f0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "d43f11bd-1711-470f-b8cd-123cfd384cc7",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "16853ed2-0979-41bf-829f-a5539d7b7eec",
+              "name": "Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "6b97b618-62f8-4e75-88c4-efe3384d535e",
+              "name": "Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "4b49f11a-4d07-43f8-a8aa-cace2f42b533",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "aada66fd-e027-4811-8188-66bc1c6df496",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/predictions?h3Cell=string&weekStart=string&predictedAccidents=9084.827720823809&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "predictions"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "weekStart",
+                      "value": "string"
+                    },
+                    {
+                      "key": "predictedAccidents",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ],
+      "id": "65794150-78f5-4709-9925-8f2ff3a151fa"
+    },
+    {
+      "name": "heatmap",
+      "item": [
+        {
+          "name": "export",
+          "item": [
+            {
+              "name": "Export data by filter",
+              "id": "7d9bf4f2-2a71-4b6e-81c7-65c8ac94bf70",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap",
+                    "export"
+                  ],
+                  "query": [
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    }
+                  ]
+                },
+                "description": "Export data in base64 with xls"
+              },
+              "response": [
+                {
+                  "id": "dd69e2be-b586-4515-bf2f-5fdab277338d",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"file\": \"string\",\n  \"fileName\": \"string\",\n  \"contentType\": \"string\"\n}"
+                },
+                {
+                  "id": "7d05beca-3966-4fbc-8511-6b5e336620a0",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "fc18deef-28c9-4158-8aea-e841915de251",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "3970b784-ee97-49b2-a302-b5d25fc60c49",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "0dfe0f84-699b-484d-ae76-22ebf8bed64d",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "83de95f2-c6a0-4dc9-bdcc-a232026c24e0",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "8de4e68b-e5c8-41ed-8419-78e9988d20ec",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/heatmap/export?start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "heatmap",
+                        "export"
+                      ],
+                      "query": [
+                        {
+                          "key": "start_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "start_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_year",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "end_month",
+                          "value": "4969"
+                        },
+                        {
+                          "key": "num_casualties",
+                          "value": "9084.827720823809"
+                        },
+                        {
+                          "key": "neighborhood",
+                          "value": "string"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "62c4e8a2-7859-422b-84cd-424e824c6679"
+        },
+        {
+          "name": "Search for the Heatmaps",
+          "id": "1e62f51c-e956-4431-9a9c-fcf6588d16d6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "heatmap"
+              ],
+              "query": [
+                {
+                  "key": "h3Cell",
+                  "value": "string"
+                },
+                {
+                  "key": "start_year",
+                  "value": "4969"
+                },
+                {
+                  "key": "start_month",
+                  "value": "4969"
+                },
+                {
+                  "key": "end_year",
+                  "value": "4969"
+                },
+                {
+                  "key": "end_month",
+                  "value": "4969"
+                },
+                {
+                  "key": "num_casualties",
+                  "value": "9084.827720823809"
+                },
+                {
+                  "key": "neighborhood",
+                  "value": "string"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "150"
+                }
+              ]
+            },
+            "description": "Search for the Heatmaps"
+          },
+          "response": [
+            {
+              "id": "f67155d5-29ed-47af-a04c-ebd79a1c135c",
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"h3Cell\": \"string\",\n    \"year\": 4669,\n    \"month\": 8946,\n    \"numCasualties\": 7457.954216721508,\n    \"createdAt\": \"2010-10-14T06:37:05.798Z\"\n  },\n  {\n    \"h3Cell\": \"string\",\n    \"year\": 1639,\n    \"month\": 3382,\n    \"numCasualties\": 2787.0641641511893,\n    \"createdAt\": \"1999-12-16T10:14:19.125Z\"\n  }\n]"
+            },
+            {
+              "id": "5e84147c-81fc-4668-8bff-87e20c2ccea9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "ac180833-c853-40b7-8e6b-44b40ee163e4",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "178ef0db-eaf3-4d9e-9202-2c266abdba87",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "5443b82f-ec89-4535-ba57-998af83f7965",
+              "name": "Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "a7763604-f9bf-4afb-ae0a-294bd0ee5fa7",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "85b898cb-604b-4005-8210-ebc53847bcf8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/heatmap?h3Cell=string&start_year=4969&start_month=4969&end_year=4969&end_month=4969&num_casualties=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "heatmap"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "start_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "start_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_year",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "end_month",
+                      "value": "4969"
+                    },
+                    {
+                      "key": "num_casualties",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ],
+      "id": "0be77d61-46bf-4d3b-b464-edfc2756fee1"
+    },
+    {
+      "name": "health",
+      "item": [
+        {
+          "name": "health",
+          "id": "780bbaa3-e7b3-4519-b027-a05730714ba8",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "*/*"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce830bf3-e878-4e4b-a682-2597bd20c144",
+              "name": "OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}"
+            },
+            {
+              "id": "fec76b2d-d33f-4172-b42e-ccce55495127",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "06a4c5ba-9b31-462b-91dd-99fdae41de77",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "13358043-11cb-424e-b83a-5b522b0331de",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "4f0d8f2c-f32e-4b67-b1b6-5ec91a7a36e5",
+              "name": "Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "fd1d32ec-8283-4c02-b8a1-55d7e3a428ee",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "9d37b900-2dbc-4177-8d8d-e839404abcc3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/health",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ],
+      "id": "9ad34036-3db4-48a4-b98a-e1932e08c5b1"
+    },
+    {
+      "name": "h3_grid",
+      "item": [
+        {
+          "name": "neighborhoods",
+          "item": [
+            {
+              "name": "Search for all neighborhoods",
+              "id": "ddf4870a-bd5d-4ac7-b2ab-437522b0dd11",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid",
+                    "neighborhoods"
+                  ]
+                },
+                "description": "Get all different neighborhoods"
+              },
+              "response": [
+                {
+                  "id": "4d12c85d-64c6-45c4-ba91-ec52143ac0b3",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "[\n  \"string\",\n  \"string\"\n]"
+                },
+                {
+                  "id": "0a695fde-027b-4a40-8825-c66c089400a6",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "cc7356d7-388b-44d5-ae64-f143347b51ab",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "35224c3d-ec08-4c79-9fde-19158f260d8f",
+                  "name": "Forbidden",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "24df67f1-5f29-4352-8825-aa6e046783a6",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "bda5f360-30a0-4534-82d8-79c167c56b37",
+                  "name": "Conflict",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "19cd4e2e-8da4-400c-9e97-e72dec99773f",
+                  "name": "Unprocessable Entity",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "*/*"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                },
+                {
+                  "id": "a8240d05-12ca-45fe-ab4a-4c8a917d571b",
+                  "name": "Internal Server Error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/h3_grid/neighborhoods",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "h3_grid",
+                        "neighborhoods"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+                }
+              ]
+            }
+          ],
+          "id": "0ad0b37a-ee9d-498f-b775-3aacc38ebdd3"
+        },
+        {
+          "name": "Search for H3 Coordinates",
+          "id": "0a3c710c-3a79-4768-a199-04ca9e63bb1f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "h3_grid"
+              ],
+              "query": [
+                {
+                  "key": "h3Cell",
+                  "value": "string"
+                },
+                {
+                  "key": "latitude",
+                  "value": "9084.827720823809"
+                },
+                {
+                  "key": "longitude",
+                  "value": "9084.827720823809"
+                },
+                {
+                  "key": "neighborhood",
+                  "value": "string"
+                },
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "150"
+                }
+              ]
+            },
+            "description": "Search for H3 Coordinates"
+          },
+          "response": [
+            {
+              "id": "ff787d6c-1c65-4da5-82ec-5af62d76840a",
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"h3Cell\": \"string\",\n    \"latitude\": 2658.065583974585,\n    \"longitude\": 151.13127552297544,\n    \"neighborhood\": \"string\",\n    \"createdAt\": \"1977-09-17T03:41:34.070Z\"\n  },\n  {\n    \"h3Cell\": \"string\",\n    \"latitude\": 2208.6197738255996,\n    \"longitude\": 5354.630394742892,\n    \"neighborhood\": \"string\",\n    \"createdAt\": \"1992-02-28T19:12:40.416Z\"\n  }\n]"
+            },
+            {
+              "id": "684d5ea0-1872-4f6c-a379-8d9b88c5131c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "ed0502b9-1930-4859-8cff-4e12f9584f6d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "b6ae93ce-a3a5-4da5-9270-d2a249220a2c",
+              "name": "Forbidden",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "f3ee80c7-49d4-45c7-bd9e-b9b659b394a6",
+              "name": "Not Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "90f2c799-469c-4d82-9652-9d1227e86ca1",
+              "name": "Conflict",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "359ad227-8b62-4f50-a9f0-404ca8d423a9",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "*/*"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            },
+            {
+              "id": "bfb3c8ec-1adc-46d2-84c9-9caa6bd50e37",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/h3_grid?h3Cell=string&latitude=9084.827720823809&longitude=9084.827720823809&neighborhood=string&page=0&pageSize=150",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "h3_grid"
+                  ],
+                  "query": [
+                    {
+                      "key": "h3Cell",
+                      "value": "string"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "9084.827720823809"
+                    },
+                    {
+                      "key": "neighborhood",
+                      "value": "string"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "150"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": 4879,\n  \"mensagem\": \"string\",\n  \"erros\": [\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    },\n    {\n      \"field\": \"string\",\n      \"error\": \"string\"\n    }\n  ]\n}"
+            }
+          ]
+        }
+      ],
+      "id": "874bd320-51cc-46f2-9098-4f670b2c48b9"
+    }
+  ],
+  "variable": [
+    {
+      "id": "7f5adbe8-df63-4fe8-a1bd-b6f216ef411a",
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

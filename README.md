@@ -118,7 +118,8 @@ migrations com flyway em [migration](src/main/resources/db/migration)
 
 ## 📬 Testando as Rotas
 
-Importe o arquivo `operacoes_postman.json` disponível no diretório root deste repositório
+Importe o arquivo [Via Segura API.postman_collection](postman/collections/Via%20Segura%20API.postman_collection.json) 
+disponível no diretório root deste repositório
 ou acesse a documentação com Swagger acessando `/swagger-ui/index.html` e importe a url `/v3/api-docs`
 no [Postman](https://www.postman.com/) para testar as operações da API.
 
