@@ -97,26 +97,7 @@ public class HeatmapService {
             specs = specs.and(hasH3CoordinatesInNeighborhood(neighborhood));
         }
 
-        Specification<Heatmap> groupStart = Specification.allOf();
-        Specification<Heatmap> groupEnd = Specification.allOf();
-
-        if(startYear != null) {
-            groupStart = groupStart.and(startYearEquals(startYear));
-        }
-
-        if(startMonth != null) {
-            groupStart = groupStart.and(startMonthEquals(startMonth));
-        }
-
-        if(endYear != null) {
-            groupEnd = groupEnd.and(endYearEquals(endYear));
-        }
-
-        if(endMonth != null) {
-            groupEnd = groupEnd.and(endMonthEquals(endMonth));
-        }
-
-        specs = specs.and(groupStart.and(groupEnd));
+        specs = configSpecsToPeriod(startYear, startMonth, endYear, endMonth, neighborhood, specs);
 
         Pageable pageRequest = PageRequest.of(page, pageSize);
 
@@ -183,23 +164,29 @@ public class HeatmapService {
             specs = specs.and(numCasualtiesEquals(numCasualties));
         }
 
+        specs = configSpecsToPeriod(startYear, startMonth, endYear, endMonth, neighborhood, specs);
+
+        return repository.findAll(specs);
+    }
+
+    private static Specification<Heatmap> configSpecsToPeriod(Integer startYear, Integer startMonth, Integer endYear, Integer endMonth, String neighborhood, Specification<Heatmap> specs) {
         Specification<Heatmap> groupStart = Specification.allOf();
         Specification<Heatmap> groupEnd = Specification.allOf();
 
         if(startYear != null) {
-            groupStart = groupStart.and(startYearEquals(startYear));
+            groupStart = groupStart.and(startYearGreatEquals(startYear));
         }
 
         if(startMonth != null) {
-            groupStart = groupStart.and(startMonthEquals(startMonth));
+            groupStart = groupStart.and(startMonthGreatEquals(startMonth));
         }
 
         if(endYear != null) {
-            groupEnd = groupEnd.and(endYearEquals(endYear));
+            groupEnd = groupEnd.and(endYearLessEquals(endYear));
         }
 
         if(endMonth != null) {
-            groupEnd = groupEnd.and(endMonthEquals(endMonth));
+            groupEnd = groupEnd.and(endMonthLessEquals(endMonth));
         }
 
         if(neighborhood != null && !neighborhood.isBlank()) {
@@ -207,7 +194,6 @@ public class HeatmapService {
         }
 
         specs = specs.and(groupStart.and(groupEnd));
-
-        return repository.findAll(specs);
+        return specs;
     }
 }

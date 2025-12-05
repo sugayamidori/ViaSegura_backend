@@ -14,19 +14,19 @@ public class HeatmapSpecs {
         return (root, query, cb) -> cb.equal(root.get("h3Cell"), h3Cell);
     }
 
-    public static Specification<Heatmap> startYearEquals(Integer startYear) {
+    public static Specification<Heatmap> startYearGreatEquals(Integer startYear) {
         return (root, query, cb) -> cb.ge(root.get("year"), startYear);
     }
 
-    public static Specification<Heatmap> startMonthEquals(Integer startMonth) {
+    public static Specification<Heatmap> startMonthGreatEquals(Integer startMonth) {
         return (root, query, cb) -> cb.ge(root.get("month"), startMonth);
     }
 
-    public static Specification<Heatmap> endYearEquals(Integer endYear) {
+    public static Specification<Heatmap> endYearLessEquals(Integer endYear) {
         return (root, query, cb) -> cb.le(root.get("year"), endYear);
     }
 
-    public static Specification<Heatmap> endMonthEquals(Integer endMonth) {
+    public static Specification<Heatmap> endMonthLessEquals(Integer endMonth) {
         return (root, query, cb) -> cb.le(root.get("month"), endMonth);
     }
 
@@ -36,6 +36,7 @@ public class HeatmapSpecs {
 
     public static Specification<Heatmap> hasH3CoordinatesInNeighborhood(String neighborhood) {
         return (root, query, cb) -> {
+            assert query != null;
             Subquery<String> subquery = query.subquery(String.class);
             Root<H3Coordinates> h3Root = subquery.from(H3Coordinates.class);
 
