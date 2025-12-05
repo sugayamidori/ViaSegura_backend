@@ -36,7 +36,7 @@ public class HeatmapController implements HeatmapControllerDocs {
             @RequestParam(value = "num_casualties", required = false) BigDecimal numCasualties,
             @RequestParam(value = "neighborhood", required = false) String neighborhood,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
-            @RequestParam(value = "pageSize", defaultValue = "150") Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "300") Integer pageSize
     ) {
         Page<HeatmapWithCoordinatesDTO> result = service.searchWithCoordinates(
                 h3Cell, startYear, startMonth, endYear, endMonth, numCasualties, neighborhood, page, pageSize
