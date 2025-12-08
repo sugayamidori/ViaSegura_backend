@@ -21,6 +21,7 @@ services:
         condition: service_healthy
     networks:
       - viasegura-network
+      - monitoring
 
   viaseguradb:
     image: postgres:16.3
@@ -76,3 +77,5 @@ volumes:
 networks:
   viasegura-network:
     driver: bridge
+  monitoring:
+    external: true
